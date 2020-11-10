@@ -1,0 +1,8 @@
+.idea/*
+src/main/resources/*
+target/*
+test_influxdb_mixed.iml
+data/*
+resources/*
+desktop.ini
+logs/*
