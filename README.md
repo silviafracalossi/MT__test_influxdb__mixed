@@ -34,11 +34,13 @@ The repository is a Maven project. Therefore, the dependency that will automatic
     -   Execute `scp standalone/NDataIngestionTest.jar sfracalossi@ironlady.inf.unibz.it:/data/sfracalossi/influxdb/standalone_mixed/standalone`;
     -   Execute `scp standalone/IngestionMixed.jar sfracalossi@ironlady.inf.unibz.it:/data/sfracalossi/influxdb/standalone_mixed/standalone`;
     -   Execute `scp standalone/QueryingMixed.jar sfracalossi@ironlady.inf.unibz.it:/data/sfracalossi/influxdb/standalone_mixed/standalone`;
-    -   Execute `scp compile_and_run.bash sfracalossi@ironlady.inf.unibz.it:/data/sfracalossi/influxdb/standalone_mixed`;
     -   Execute `scp resources/logging.properties sfracalossi@ironlady.inf.unibz.it:/data/sfracalossi/influxdb/standalone_mixed/resources`;
 -   Send the data file:
     -   Execute `scp data/TEMPERATURE_HalfGB_ns.csv sfracalossi@ironlady.inf.unibz.it:/data/sfracalossi/influxdb/standalone_mixed/data`;
     -   Execute `scp data/TEMPERATURE_1GB_ns.csv sfracalossi@ironlady.inf.unibz.it:/data/sfracalossi/influxdb/standalone_mixed/data`;
+-   Sending the scripts:
+    -   Execute `scp compile_and_run.bash sfracalossi@ironlady.inf.unibz.it:/data/sfracalossi/influxdb/standalone_mixed`;
+    -   Execute `scp script.bash sfracalossi@ironlady.inf.unibz.it:/data/sfracalossi/influxdb/standalone_mixed`;
 -   Execute the JAR file (use the terminal connected through SSH):
     -   Execute `cd influxdb/standalone_mixed`;
-    -   (TODO) Execute `nohup bash compile_and_run.bash [l/s] [table_name] [inmem/tsi] > logs/out.txt &`
+    -   Execute `nohup bash compile_and_run.bash [l/s] [table_name] [inmem/tsi] > logs/out.txt &`
