@@ -23,19 +23,15 @@ public class DatabaseInteractions {
   // Databases Username, Password and Database name
   static final String username = "root";
   static final String password = "root";
-  static final String dbName = "test_table_n";
-
-  // Retention policy definition
-  static String retention_policy_name = "testPolicy";
-  static String duration = "INF";
-  static String replication = "1";
+  static String dbName;
 
   // Location of file containing data
   String data_file_path;
 
 
   // Constructor
-  public DatabaseInteractions(String data_file_path, Boolean useServerInfluxDB) {
+  public DatabaseInteractions(String dbName, String data_file_path, Boolean useServerInfluxDB) {
+    this.dbName=dbName;
     this.useServerInfluxDB=useServerInfluxDB;
     this.data_file_path=data_file_path;
   }
@@ -45,7 +41,6 @@ public class DatabaseInteractions {
 
     // Defining variables useful for method
     String[] fields;
-    int rows_inserted = 0;
 
     try {
 
@@ -69,7 +64,7 @@ public class DatabaseInteractions {
         try {
           influxDB.write(dbName, "testPolicy", point);
           logger.info("Query executed: ("+fields[0]+","+fields[1]+")\n");
-          rows_inserted++;
+          System.out.println("Inserted");
         } catch (InfluxDBException e) {
           System.out.println("Problems with executing the query on the DB");
           logger.severe("Problems with executing query: ("+fields[0]+","+fields[1]+")\n");
@@ -84,21 +79,12 @@ public class DatabaseInteractions {
       e.printStackTrace();
       logger.severe("Insertion: \"1\" - problems with the execution");
     }
-
-    // Checking the number of rows inserted
-    int rows_count = getRowsInDatabase();
-    if (rows_count == rows_inserted) {
-      logger.info("Total rows inserted: "+rows_inserted);
-    } else {
-      logger.severe("Supposed rows inserted: "+rows_inserted+" but found "+rows_count);
-    }
   }
 
   //----------------------DATABASE UTILITY--------------------------------------
 
   // Connecting to the InfluxDB database
   public static boolean createDBConnection() {
-    String pos_complete_url;
     if (useServerInfluxDB) {
       influxDB = InfluxDBFactory.connect(serverURL, username, password);
     } else {
@@ -108,39 +94,6 @@ public class DatabaseInteractions {
     // Pinging the DB
     Pong response = influxDB.ping();
     return !(response.getVersion().equalsIgnoreCase("unknown"));
-  }
-
-  // Creating the table "test_table" in the database
-  public static void createDatabase () {
-    removeDatabase();
-    influxDB.createDatabase(dbName);
-
-    // CREATE RETENTION POLICY testPolicy ON test_table DURATION INF REPLICATION 1
-    String query_string = "CREATE RETENTION POLICY "+retention_policy_name+" ON "+dbName+
-            " DURATION "+duration+" REPLICATION "+replication+" DEFAULT";
-    influxDB.query(new Query(query_string, dbName));
-    influxDB.setRetentionPolicy("testPolicy");
-  }
-
-  // Get the number of rows present in the database
-  public static int getRowsInDatabase() {
-    QueryResult queryResult;
-    String count_query = "SELECT COUNT(*) FROM \"temperature\"";
-    queryResult = influxDB.query(new Query(count_query, dbName));
-
-    String count_in_string = (queryResult.getResults().get(0).getSeries()
-            .get(0).getValues().get(0).get(1)) + "";
-    int count = Integer.parseInt((count_in_string).substring(0, count_in_string.length() - 2));
-    return (count > -1) ? count : 0;
-  }
-
-  // Dropping the table "test_table" from the database
-  public static void removeDatabase() {
-    try {
-      influxDB.deleteDatabase(dbName);
-    } catch (NullPointerException e) {
-      System.out.println("Test table was already removed");
-    }
   }
 
   // Closing the connections to the database
