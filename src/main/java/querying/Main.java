@@ -77,7 +77,7 @@ public class Main {
             logger = instantiateLogger("querying");
             logger.info("Index: " + index_types[index_no]);
 
-            // Opening a connection to the postgreSQL database
+            // Opening a connection to the InfluxDB database
             logger.info("Connecting to the InfluxDB database...");
             createDBConnection();
 
