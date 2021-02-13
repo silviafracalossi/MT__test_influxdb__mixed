@@ -32,8 +32,8 @@ public class Main {
     static String requestedURL = "";
 
     // Databases Username, Password and Database name
-    static final String username = "root";
-    static final String password = "root";
+    static final String username = "";
+    static final String password = "";
 
     // Database Objects names
     static String dbName;
