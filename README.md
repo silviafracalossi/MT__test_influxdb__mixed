@@ -43,4 +43,4 @@ The repository is a Maven project. Therefore, the dependency that will automatic
     -   Execute `scp script.bash sfracalossi@ironlady.inf.unibz.it:/data/sfracalossi/influxdb/standalone_mixed`;
 -   Execute the JAR file (use the terminal connected through SSH):
     -   Execute `cd influxdb/standalone_mixed`;
-    -   Execute `nohup bash compile_and_run.bash [l/s] [table_name] [inmem/tsi] > logs/out.txt &`
+    -   Execute `nohup bash compile_and_run.bash [l/s] [table_name] [inmem/tsi1] > logs/out.txt &`
