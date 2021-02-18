@@ -18,7 +18,7 @@ The repository is a Maven project. Therefore, the dependency that will automatic
 -   Create the folder `data`;
     -   Inside the folder, copy-paste the printers parsed log files, whose timestamp is defined in nanoseconds;
 -   Run the project
-    -   (TODO) Execute `bash compile_and_run.bash [l/s] [table_name] [inmem/tsi]`
+    -   Execute `bash compile_and_run.bash [l/s] [table_name] [inmem/tsi]`
 
 ## Preparing the standalone version on the server
 -   Connect to the unibz VPN through Cisco AnyConnect;
